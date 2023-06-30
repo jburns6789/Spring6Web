@@ -18,9 +18,19 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "author book", joinColumns = @JoinColumn(name = "book id"),
         inverseJoinColumns = @JoinColumn(name = "author id"))
-
     //common mistake is to have a null pointer exception, have to initialize the set
     private Set<Author> authors = new HashSet<>();
+
+    @ManyToOne
+    private Publisher publisher;
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     public Set<Author> getAuthors() {
         return authors;
