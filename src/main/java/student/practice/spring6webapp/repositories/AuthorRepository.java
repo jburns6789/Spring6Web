@@ -9,5 +9,4 @@ import student.practice.spring6webapp.domain.Author;
 
 //JPA will write the implementations at runtime
 public interface AuthorRepository extends CrudRepository<Author, Long> {
-
 }

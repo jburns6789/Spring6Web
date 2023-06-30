@@ -2,6 +2,7 @@ package student.practice.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,7 +19,8 @@ public class Book {
     @JoinTable(name = "author book", joinColumns = @JoinColumn(name = "book id"),
         inverseJoinColumns = @JoinColumn(name = "author id"))
 
-    private Set<Author> authors;
+    //common mistake is to have a null pointer exception, have to initialize the set
+    private Set<Author> authors = new HashSet<>();
 
     public Set<Author> getAuthors() {
         return authors;

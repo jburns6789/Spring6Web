@@ -3,6 +3,7 @@ package student.practice.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,7 +11,6 @@ import java.util.Set;
 
 @Entity
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,7 +18,9 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy = "authors")
-    private Set<Book> books;
+
+    //common mistake is to have a null pointer exception, have to initialize the set
+    private Set<Book> books = new HashSet<>();
 
     //set should be used vs a list, list will allow for duplicate items
 
