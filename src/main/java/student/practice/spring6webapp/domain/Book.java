@@ -2,6 +2,8 @@ package student.practice.spring6webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -16,8 +18,19 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "author book", joinColumns = @JoinColumn(name = "book id"),
         inverseJoinColumns = @JoinColumn(name = "author id"))
+    //common mistake is to have a null pointer exception, have to initialize the set
+    private Set<Author> authors = new HashSet<>();
 
-    private Set<Author> authors;
+    @ManyToOne
+    private Publisher publisher;
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     public Set<Author> getAuthors() {
         return authors;
@@ -51,4 +64,29 @@ public class Book {
         this.ISBN = ISBN;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book book)) return false;
+
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    //cmd+n toString()
+
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", authors=" + authors +
+                '}';
+    }
 }
